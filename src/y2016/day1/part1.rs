@@ -39,6 +39,26 @@ fn sayHi() {
     }
     ).collect::<Vec<Go>>();
     println!("{goList:?}");
+    let mut state = State{
+        location: (0, 0),
+        azimuth: Azimuth::North,
+    };
+
+}
+
+impl State {
+    // todo 方向
+    fn turn(&mut self,dir:Direction) {
+
+    }
+
+    fn run(&mut self,step:usize) {
+
+    }
+
+    fn go(&mut self,go: Go) {
+
+    }
 }
 
 impl FromStr for Go {
