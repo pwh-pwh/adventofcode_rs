@@ -19,10 +19,32 @@ type Location = (i32, i32);
 //方位azimuth
 #[derive(Debug)]
 enum Azimuth {
-    East,
-    West,
     North,
+    East,
     South,
+    West,
+}
+
+impl From<i32> for Azimuth {
+    fn from(value: i32) -> Self {
+        match (value + 4) % 4 {
+            0 => Azimuth::North,
+            1 => Azimuth::East,
+            2 => Azimuth::South,
+            _ => Azimuth::West,
+        }
+    }
+}
+
+impl Azimuth {
+    fn to_number(&self) -> i32 {
+        match self {
+            Azimuth::North => 0,
+            Azimuth::East => 1,
+            Azimuth::South => 2,
+            Azimuth::West => 3
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -31,7 +53,7 @@ struct State {
     azimuth: Azimuth,
 }
 
-fn sayHi() {
+fn part1() {
     let mut ct = String::new();
     let _ = File::open("src/y2016/day1/input.txt").unwrap().read_to_string(&mut ct);
     let goList = ct.split(", ").map(|item| {
@@ -39,25 +61,51 @@ fn sayHi() {
     }
     ).collect::<Vec<Go>>();
     println!("{goList:?}");
-    let mut state = State{
+    let mut state = State {
         location: (0, 0),
         azimuth: Azimuth::North,
     };
-
+    goList.iter().for_each(|item| {
+        state.go(item);
+    });
+    let location = state.location;
+    println!("location: {location:?}");
 }
 
 impl State {
     // todo 方向
-    fn turn(&mut self,dir:Direction) {
-
+    fn turn(&mut self, dir: &Direction) {
+        match dir {
+            Direction::Left => {
+                self.azimuth = (self.azimuth.to_number() - 1).into()
+            }
+            Direction::Right => {
+                self.azimuth = (self.azimuth.to_number() + 1).into()
+            }
+        }
     }
 
-    fn run(&mut self,step:usize) {
-
+    fn run(&mut self, step: usize) {
+        let step = step as i32;
+        match self.azimuth {
+            Azimuth::North => {
+                self.location.1 += step;
+            }
+            Azimuth::East => {
+                self.location.0 += step;
+            }
+            Azimuth::South => {
+                self.location.1 -= step;
+            }
+            Azimuth::West => {
+                self.location.0 -= step;
+            }
+        }
     }
 
-    fn go(&mut self,go: Go) {
-
+    fn go(&mut self, go: &Go) {
+        self.turn(&go.direction);
+        self.run(go.step);
     }
 }
 
@@ -87,6 +135,6 @@ mod tests {
 
     #[test]
     fn test() {
-        sayHi();
+        part1();
     }
 }
