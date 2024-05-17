@@ -5,9 +5,7 @@ use std::io::{BufRead, BufReader};
 type Location = (usize, usize);
 
 fn part1() {
-    let matrix: [[i32; 3]; 3] = [ [7,8,9],
-        [4,5,6],
-        [1,2,3]];
+    let matrix: [[i32; 3]; 3] = [[7, 8, 9], [4, 5, 6], [1, 2, 3]];
     let mut result: Vec<i32> = vec![];
     let mut location = (1, 1);
     let file = File::open("src/y2016/day2/input.txt").unwrap();
@@ -25,34 +23,32 @@ fn part1() {
 }
 
 fn moveLoc(location: &mut Location, str: String) {
-    str.chars().for_each(|c| {
-        match c {
-            'D' => {
-                let y = location.1;
-                if y != 0 {
-                    location.1 -= 1;
-                }
+    str.chars().for_each(|c| match c {
+        'D' => {
+            let y = location.1;
+            if y != 0 {
+                location.1 -= 1;
             }
-            'U' => {
-                let y = location.1;
-                if y != 2 {
-                    location.1 += 1;
-                }
-            }
-            'L' => {
-                let x = location.0;
-                if x != 0 {
-                    location.0 -= 1;
-                }
-            }
-            'R' => {
-                let x = location.0;
-                if x != 2 {
-                    location.0 += 1;
-                }
-            }
-            _ => (),
         }
+        'U' => {
+            let y = location.1;
+            if y != 2 {
+                location.1 += 1;
+            }
+        }
+        'L' => {
+            let x = location.0;
+            if x != 0 {
+                location.0 -= 1;
+            }
+        }
+        'R' => {
+            let x = location.0;
+            if x != 2 {
+                location.0 += 1;
+            }
+        }
+        _ => (),
     });
 }
 

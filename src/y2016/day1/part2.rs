@@ -43,7 +43,7 @@ impl Azimuth {
             Azimuth::North => 0,
             Azimuth::East => 1,
             Azimuth::South => 2,
-            Azimuth::West => 3
+            Azimuth::West => 3,
         }
     }
 }
@@ -56,14 +56,15 @@ struct State {
     storage: HashSet<Location>,
 }
 
-
 fn part2() {
     let mut ct = String::new();
-    let _ = File::open("src/y2016/day1/input.txt").unwrap().read_to_string(&mut ct);
-    let goList = ct.split(", ").map(|item| {
-        Go::from_str(item).unwrap()
-    }
-    ).collect::<Vec<Go>>();
+    let _ = File::open("src/y2016/day1/input.txt")
+        .unwrap()
+        .read_to_string(&mut ct);
+    let goList = ct
+        .split(", ")
+        .map(|item| Go::from_str(item).unwrap())
+        .collect::<Vec<Go>>();
     println!("{goList:?}");
     let mut state = State {
         location: (0, 0),
@@ -84,12 +85,8 @@ impl State {
     // todo 方向
     fn turn(&mut self, dir: &Direction) {
         match dir {
-            Direction::Left => {
-                self.azimuth = (self.azimuth.to_number() - 1).into()
-            }
-            Direction::Right => {
-                self.azimuth = (self.azimuth.to_number() + 1).into()
-            }
+            Direction::Left => self.azimuth = (self.azimuth.to_number() - 1).into(),
+            Direction::Right => self.azimuth = (self.azimuth.to_number() + 1).into(),
         }
     }
 
@@ -154,7 +151,6 @@ impl FromStr for Go {
         })
     }
 }
-
 
 #[cfg(test)]
 mod tests {
