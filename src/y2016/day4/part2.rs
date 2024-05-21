@@ -18,7 +18,7 @@ fn encode(str: &str) {
     for x in origin_str.as_bytes() {
         if (*x) as char == '-' {
             sb.push(' ');
-            continue
+            continue;
         }
         sb.push(br(*x as char, id as usize));
     }
