@@ -1,9 +1,9 @@
 fn get_triangle(s: &str) -> Vec<i32> {
-    return s.split_whitespace()
+    return s
+        .split_whitespace()
         .map(|x| x.parse::<i32>().unwrap())
         .collect::<Vec<i32>>();
 }
-
 
 fn part2() {
     let input = include_str!("./input.txt");
@@ -16,8 +16,10 @@ fn part2() {
                 let line2 = get_triangle(lines.next().unwrap());
                 let line3 = get_triangle(lines.next().unwrap());
                 for i in 0..3 {
-                    if line1[i] + line2[i] > line3[i] && line2[i] + line3[i] > line1[i] &&
-                        line3[i] + line1[i] > line2[i] {
+                    if line1[i] + line2[i] > line3[i]
+                        && line2[i] + line3[i] > line1[i]
+                        && line3[i] + line1[i] > line2[i]
+                    {
                         pos += 1;
                     }
                 }

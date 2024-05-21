@@ -3,10 +3,10 @@ use std::io::Read;
 
 fn part1() {
     let mut ct = String::default();
-    let _ = File::open("src/y2016/day3/input.txt").unwrap().read_to_string(&mut ct);
-    let count = ct.lines().filter(|line| {
-        is_triangle(line)
-    }).count();
+    let _ = File::open("src/y2016/day3/input.txt")
+        .unwrap()
+        .read_to_string(&mut ct);
+    let count = ct.lines().filter(|line| is_triangle(line)).count();
     println!("count: {count}");
 }
 
@@ -47,9 +47,9 @@ fn is_triangle(s: &str) -> bool {
         return false;
     }
 
-    sides[0] + sides[1] > sides[2] &&
-        sides[1] + sides[2] > sides[0] &&
-        sides[0] + sides[2] > sides[1]
+    sides[0] + sides[1] > sides[2]
+        && sides[1] + sides[2] > sides[0]
+        && sides[0] + sides[2] > sides[1]
 }
 
 #[cfg(test)]
