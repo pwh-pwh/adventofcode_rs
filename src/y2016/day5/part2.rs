@@ -1,6 +1,6 @@
-use std::collections::HashSet;
 use md5::Digest;
 use rustc_serialize::hex::ToHex;
+use std::collections::HashSet;
 
 fn part2() {
     let input = "cxdnnyjw";
