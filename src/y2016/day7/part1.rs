@@ -1,7 +1,30 @@
 fn part1() {
     let input = include_str!("./input.txt");
-    let count = input.lines().filter(|line| is_support_tls(line)).count();
+    let count = input.lines().filter(|line| is_abba(line)).count();
     println!("{count}");
+}
+
+fn is_abba(slice: &str) -> bool {
+    let mut in_hypernet = false;
+    let mut valid = false;
+    let slice: Vec<_> = slice.chars().collect();
+
+    for window in slice.windows(4) {
+        if window[0] == '[' || window[0] == ']' {
+            in_hypernet = !in_hypernet;
+            continue;
+        }
+
+        if window[0] != window[1] && window[1] == window[2] && window[0] == window[3] {
+            if in_hypernet {
+                return false;
+            } else {
+                valid = true;
+            }
+        }
+    }
+
+    valid
 }
 
 fn is_support_tls(line: &str) -> bool {
