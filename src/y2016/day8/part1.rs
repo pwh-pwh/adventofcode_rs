@@ -30,9 +30,10 @@ fn part1() {
 fn parse_rect(line: &str) ->Action {
     let ls = line.split(" ").nth(2).unwrap();
     // todo get x y
+    let x_y:Vec<&str> = ls.split("x").collect();
     Action::Rect {
-        x: 1,
-        y: 1
+        x: x_y[0].parse().unwrap(),
+        y: x_y[1].parse().unwrap(),
     }
 }
 
