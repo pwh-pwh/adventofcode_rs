@@ -1,7 +1,6 @@
-
 fn part2() {
     let input = include_str!("./input.txt");
-    let count = input.lines().filter(|line|is_aba(line)).count();
+    let count = input.lines().filter(|line| is_aba(line)).count();
     println!("{}", count);
 }
 
@@ -18,9 +17,9 @@ fn is_aba(slice: &str) -> bool {
 
         if window[0] == window[2] && window[0] != window[1] {
             if in_hypernet {
-                babs.push( (window[1], window[0], window[1]) );
+                babs.push((window[1], window[0], window[1]));
             } else {
-                abas.push( (window[0], window[1], window[0]) );
+                abas.push((window[0], window[1], window[0]));
             }
         }
     }
@@ -36,11 +35,10 @@ fn is_aba(slice: &str) -> bool {
     false
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test() {
         part2();

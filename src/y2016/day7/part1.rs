@@ -28,25 +28,23 @@ fn is_abba(slice: &str) -> bool {
 }
 
 fn is_support_tls(line: &str) -> bool {
-    let cs = line.chars().enumerate()
-        .collect::<Vec<(usize, char)>>();
+    let cs = line.chars().enumerate().collect::<Vec<(usize, char)>>();
     // state 0 -> init -1 -> unable 1 -> valid
     let mut state = 0;
-    cs.windows(4)
-        .for_each(|iter| {
-            if state == -1 {
-                return;
+    cs.windows(4).for_each(|iter| {
+        if state == -1 {
+            return;
+        }
+        let [i1, i2, i3, i4] = iter else { todo!() };
+        if i1.1 == i4.1 && i2.1 == i3.1 && i1.1 != i2.1 {
+            let valid = is_valid(line, i1.0);
+            if valid {
+                state = 1;
+            } else {
+                state = -1;
             }
-            let [i1, i2, i3, i4] = iter else { todo!() };
-            if i1.1 == i4.1 && i2.1 == i3.1 && i1.1 != i2.1 {
-                let valid = is_valid(line, i1.0);
-                if valid {
-                    state = 1;
-                } else {
-                    state = -1;
-                }
-            }
-        });
+        }
+    });
     if state == 1 {
         true
     } else {
