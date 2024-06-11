@@ -16,13 +16,13 @@ fn decompress(s: &str) -> usize {
         let marker = &s[1..marker_end];
         let marker: Vec<&str> = marker.split('x').collect();
         let ts = s[marker_end + 1..].to_owned();
-        ret += ts[..marker[0].parse::<usize>().unwrap()].len() * marker[1].parse::<usize>().unwrap();
+        ret +=
+            ts[..marker[0].parse::<usize>().unwrap()].len() * marker[1].parse::<usize>().unwrap();
         s = ts[marker[0].parse::<usize>().unwrap()..].to_owned();
     }
     ret += s.len();
     ret
 }
-
 
 #[cfg(test)]
 mod tests {

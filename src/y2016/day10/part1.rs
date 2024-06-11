@@ -1,6 +1,6 @@
+use regex::Regex;
 use std::collections::HashMap;
 use std::fs;
-use regex::Regex;
 
 fn part1() {
     let mut bots: HashMap<i32, Vec<i32>> = HashMap::new();
@@ -13,10 +13,12 @@ fn part1() {
     let re_type = Regex::new(r" (bot|output)").unwrap();
 
     for line in instructions {
-        let nums: Vec<i32> = re_num.find_iter(line)
+        let nums: Vec<i32> = re_num
+            .find_iter(line)
             .map(|mat| mat.as_str().parse::<i32>().unwrap())
             .collect();
-        let types: Vec<&str> = re_type.find_iter(line)
+        let types: Vec<&str> = re_type
+            .find_iter(line)
             .map(|mat| mat.as_str().trim())
             .collect();
 
