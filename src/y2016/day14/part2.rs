@@ -12,7 +12,7 @@ fn part2() {
         num+=1;
         if is_valid(digest.to_hex().as_bytes(),num,input,&mut map) {
             count+=1;
-            println!("f n:{num}");
+            // println!("f n:{num}");
         }
 
     }
