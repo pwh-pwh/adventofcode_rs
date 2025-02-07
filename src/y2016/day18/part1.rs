@@ -9,6 +9,17 @@ fn part1() {
     println!("{}", count);
 }
 
+fn part2() {
+    let mut input = ".^^^^^.^^^..^^^^^...^.^..^^^.^^....^.^...^^^...^^^^..^...^...^^.^.^.......^..^^...^.^.^^..^^^^^...^.".to_string();
+    let mut count = 0usize;
+    count += count_safe_tiles(&input);
+    for i in 0..400000 - 1 {
+        input = generate_next(&input);
+        count += count_safe_tiles(&input);
+    }
+    println!("{}", count);
+}
+
 fn generate_next(input: &str) -> String {
     let mut result = String::new();
     let sl = input.len();
@@ -52,7 +63,7 @@ fn count_safe_tiles(input: &str) -> usize {
 
 #[cfg(test)]
 mod tests {
-    use crate::y2016::day18::part1::{generate_next, part1};
+    use crate::y2016::day18::part1::{generate_next, part1, part2};
 
     #[test]
     fn test_gen() {
@@ -62,5 +73,10 @@ mod tests {
     #[test]
     fn test_part1() {
         part1();
+    }
+    
+    #[test]
+    fn test_part2() {
+        part2();
     }
 }
