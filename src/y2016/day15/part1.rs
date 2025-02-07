@@ -1,4 +1,4 @@
-fn solve_congruences(congruences: Vec<(u64,u64)>)->u64 {
+fn solve_congruences(congruences: Vec<(u64, u64)>) -> u64 {
     let mut t = 0;
     let mut step = 1;
 
@@ -12,10 +12,14 @@ fn solve_congruences(congruences: Vec<(u64,u64)>)->u64 {
 }
 
 fn find_earliest_time(discs: Vec<(u64, u64)>) -> u64 {
-    let result:Vec<(u64, u64)> = discs.iter().enumerate().map(|(i, (total_pos, start_pos))| {
-        let remainder = (total_pos - (start_pos + i as u64 + 1) % total_pos) % total_pos;
-        (remainder, *total_pos)
-    }).collect::<Vec<_>>();
+    let result: Vec<(u64, u64)> = discs
+        .iter()
+        .enumerate()
+        .map(|(i, (total_pos, start_pos))| {
+            let remainder = (total_pos - (start_pos + i as u64 + 1) % total_pos) % total_pos;
+            (remainder, *total_pos)
+        })
+        .collect::<Vec<_>>();
     solve_congruences(result)
 }
 
@@ -63,26 +67,18 @@ discs = [
 print(find_earliest_time(discs))  # Output: 5
  */
 
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test() {
         println!("{}", solve_congruences(vec![(0, 5), (1, 2)]));
     }
-    
+
     #[test]
     fn test2() {
-        let arg = vec![(17, 15),
-                       (3, 2),
-                       (19,4),
-                       (13,2),
-                       (7,2),
-                       (5,0),
-                       (11,0)];
+        let arg = vec![(17, 15), (3, 2), (19, 4), (13, 2), (7, 2), (5, 0), (11, 0)];
         println!("{}", find_earliest_time(arg));
     }
 }
