@@ -43,6 +43,80 @@ fn part1() {
     println!("{}", password);
 }
 
+fn part2() {
+    let input = include_str!("./input.txt");
+    let p = String::from("abcdefgh");
+    let mut begin = String::new();
+    for mut password in get_permutations(&p) {
+        begin = password.clone();
+        input.lines().for_each(|line| {
+            let info: Vec<&str> = line.split_whitespace().collect();
+            match info[0] {
+                "swap" => {
+                    if info[1] == "position" {
+                        let x = info[2].parse::<usize>().unwrap();
+                        let y = info[5].parse::<usize>().unwrap();
+                        password = swap_position(x, y, &password);
+                    } else {
+                        let x = info[2].chars().next().unwrap();
+                        let y = info[5].chars().next().unwrap();
+                        password = swap_letter(x, y, &password);
+                    }
+                }
+                "rotate" => {
+                    if info[1] == "based" {
+                        let x = info[6].chars().next().unwrap();
+                        password = rotate_position(x, &password);
+                    } else {
+                        let direction = info[1];
+                        let distance = info[2].parse::<usize>().unwrap();
+                        password = rotate(direction, distance, &password);
+                    }
+                }
+                "reverse" => {
+                    let x = info[2].parse::<usize>().unwrap();
+                    let y = info[4].parse::<usize>().unwrap();
+                    password = reverse_positions(x, y, &password);
+                }
+                "move" => {
+                    let x = info[2].parse::<usize>().unwrap();
+                    let y = info[5].parse::<usize>().unwrap();
+                    password = move_position(x, y, &password);
+                }
+                _ => {
+                    println!("this shouldn't happen");
+                }
+            }
+        });
+        if password == "fbgdceah" {  
+            break
+        }
+    }
+    println!("{}", begin);
+}
+
+
+fn get_permutations(s: &str) -> Vec<String> {
+    let mut result = Vec::new();
+    let chars: Vec<char> = s.chars().collect(); // 将字符串转换为字符向量
+    permute(&chars, 0, &mut result); // 调用递归函数生成排列
+    result
+}
+
+// 递归生成排列的函数
+fn permute(chars: &Vec<char>, start: usize, result: &mut Vec<String>) {
+    if start == chars.len() {
+        result.push(chars.iter().collect()); // 当所有字符都排列完成时，收集结果
+        return;
+    }
+
+    for i in start..chars.len() {
+        let mut chars = chars.clone(); // 克隆当前字符向量
+        chars.swap(start, i); // 交换当前字符与后续字符
+        permute(&chars, start + 1, result); // 递归排列剩余的部分
+    }
+}
+
 fn swap_position(x: usize,y: usize,word: &str) -> String {
     let mut word:Vec<char> = word.chars().collect();
     word.swap(x,y);
@@ -93,5 +167,15 @@ mod tests {
     #[test]
     fn test_part1() {
         part1()
+    }
+    
+    #[test]
+    fn test_part2() {
+        part2()
+    }
+    
+    #[test]
+    fn test_get_permutations() {
+        println!("{:?}", get_permutations("abc"));
     }
 }
