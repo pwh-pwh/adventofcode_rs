@@ -88,13 +88,12 @@ fn part2() {
                 }
             }
         });
-        if password == "fbgdceah" {  
-            break
+        if password == "fbgdceah" {
+            break;
         }
     }
     println!("{}", begin);
 }
-
 
 fn get_permutations(s: &str) -> Vec<String> {
     let mut result = Vec::new();
@@ -117,17 +116,19 @@ fn permute(chars: &Vec<char>, start: usize, result: &mut Vec<String>) {
     }
 }
 
-fn swap_position(x: usize,y: usize,word: &str) -> String {
-    let mut word:Vec<char> = word.chars().collect();
-    word.swap(x,y);
+fn swap_position(x: usize, y: usize, word: &str) -> String {
+    let mut word: Vec<char> = word.chars().collect();
+    word.swap(x, y);
     word.iter().collect()
 }
 
-fn swap_letter(x: char,y: char,word: &str) -> String {
-    word.replace(x, "?").replace(y, &x.to_string()).replace('?', &y.to_string())
+fn swap_letter(x: char, y: char, word: &str) -> String {
+    word.replace(x, "?")
+        .replace(y, &x.to_string())
+        .replace('?', &y.to_string())
 }
 
-fn rotate(direction:&str,distance: usize,word: &str) -> String {
+fn rotate(direction: &str, distance: usize, word: &str) -> String {
     let len = word.len();
     let distance = distance % len;
     if direction == "right" {
@@ -168,12 +169,12 @@ mod tests {
     fn test_part1() {
         part1()
     }
-    
+
     #[test]
     fn test_part2() {
         part2()
     }
-    
+
     #[test]
     fn test_get_permutations() {
         println!("{:?}", get_permutations("abc"));

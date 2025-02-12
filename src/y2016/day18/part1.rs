@@ -47,7 +47,7 @@ fn generate_next(input: &str) -> String {
                 isTrap = true;
             }
         }
-        if isTrap { 
+        if isTrap {
             result.push('^');
         } else {
             result.push('.');
@@ -58,7 +58,7 @@ fn generate_next(input: &str) -> String {
 }
 
 fn count_safe_tiles(input: &str) -> usize {
-    input.chars().filter(|c|*c == '.').count()
+    input.chars().filter(|c| *c == '.').count()
 }
 
 #[cfg(test)]
@@ -69,12 +69,12 @@ mod tests {
     fn test_gen() {
         println!("{}", generate_next(".^^^..^.^^"));
     }
-    
+
     #[test]
     fn test_part1() {
         part1();
     }
-    
+
     #[test]
     fn test_part2() {
         part2();

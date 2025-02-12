@@ -33,7 +33,7 @@ mod tests {
     fn test_part1() {
         part1();
     }
-    
+
     #[test]
     fn test_part2() {
         part2();
