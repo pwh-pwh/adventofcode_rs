@@ -19,3 +19,4 @@ mod day7;
 mod day8;
 mod day9;
 mod day23;
+mod day24;
